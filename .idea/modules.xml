@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/mybatis-plus-helper.iml" filepath="$PROJECT_DIR$/.idea/mybatis-plus-helper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/springboot-plushelper/springboot-plushelper.iml" filepath="$PROJECT_DIR$/springboot-plushelper/springboot-plushelper.iml" />
     </modules>
   </component>
 </project>
