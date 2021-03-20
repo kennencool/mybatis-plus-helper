@@ -9,9 +9,9 @@
       </el-header>
       
       <el-container>
-        <el-aside width="200px">
-          <el-menu>
-            <el-submenu @click="getTables(item)" :index="index+''" v-for="(item,index) in databases" v-if="!item.hidden" :key="index">
+        <el-aside width="250px">
+          <el-menu @open="getTables()">
+            <el-submenu :index="index+''" v-for="(item,index) in databases" v-if="!item.hidden" :key="index">
               <template #title>
                 <i class="el-icon-s-platform" style="color: aqua; margin-right: 5px"></i><span>{{item}}</span>
               </template>
@@ -36,8 +36,8 @@ export default {
   name: "Home",
   data(){
     return{
-      databases: ['vhr','bbb','ccc'],
-      tables:[111,222,333],
+      databases: ['vhr'],
+      tables:[],
       
     }
   },
@@ -46,11 +46,10 @@ export default {
   },
   
   methods:{
-    getTables(database){
-      console.log(database);
-      this.getRequest("/table/"+database).then(resp=>{
+    getTables(){
+      this.getRequest("/table/").then(resp=>{
         if(resp){
-          this.tables = resp.data;
+          this.tables = resp;
         }
       })
     }
