@@ -18,7 +18,7 @@ public class DruidProperties {
     private String username = "root";
 
     private String password = "nbuser";
-
+    
     private String driverClassName = "com.mysql.jdbc.Driver";
 
     private Integer initialSize = 10;
@@ -51,11 +51,10 @@ public class DruidProperties {
 
     private String filters = "stat";
 
-    public void config(DruidDataSource dataSource) {
-        
+    public void config(DruidDataSource dataSource, String url, String user, String password) {
         dataSource.setDbType(JdbcConstants.MYSQL);
         dataSource.setUrl(url);
-        dataSource.setUsername(username);
+        dataSource.setUsername(user);
         dataSource.setPassword(password);
         dataSource.setDriverClassName(driverClassName);
         dataSource.setInitialSize(initialSize);     // 定义初始连接数
@@ -90,5 +89,4 @@ public class DruidProperties {
             e.printStackTrace();
         }
     }
-    
 }
