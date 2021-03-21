@@ -10,15 +10,6 @@ import java.sql.SQLException;
 @Component
 @Data
 public class DruidProperties {
-
-    private String database = "vhr";
-    
-    private String url = "jdbc:mysql://localhost:3306/"+ database +"?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC";
-
-    private String username = "root";
-
-    private String password = "nbuser";
-    
     private String driverClassName = "com.mysql.jdbc.Driver";
 
     private Integer initialSize = 20;
