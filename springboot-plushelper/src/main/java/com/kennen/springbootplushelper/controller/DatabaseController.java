@@ -2,7 +2,7 @@ package com.kennen.springbootplushelper.controller;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.kennen.springbootplushelper.config.properties.DruidProperties;
-import com.kennen.springbootplushelper.pojo.ConnectionParam;
+import com.kennen.springbootplushelper.pojo.param.ConnectionParam;
 import com.kennen.springbootplushelper.pojo.resp.RespBean;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;

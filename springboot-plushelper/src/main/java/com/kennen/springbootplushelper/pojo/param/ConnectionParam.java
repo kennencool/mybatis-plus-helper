@@ -1,4 +1,4 @@
-package com.kennen.springbootplushelper.pojo;
+package com.kennen.springbootplushelper.pojo.param;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
