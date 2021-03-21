@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ConnectionParam {
-    private String url;
+    private String host;
+    private String port;
     private String user;
     private String password;
+    private String database;
 }

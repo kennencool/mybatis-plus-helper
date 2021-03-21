@@ -21,7 +21,7 @@ public class DruidProperties {
     
     private String driverClassName = "com.mysql.jdbc.Driver";
 
-    private Integer initialSize = 10;
+    private Integer initialSize = 20;
 
     private Integer minIdle = 3;
 
