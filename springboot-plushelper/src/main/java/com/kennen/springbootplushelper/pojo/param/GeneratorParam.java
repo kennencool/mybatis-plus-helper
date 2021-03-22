@@ -15,10 +15,10 @@ import lombok.NoArgsConstructor;
 public class GeneratorParam {
     // 项目路径
     private String projectPath;
-    
+    // 数据库名
     private String database;
     // 包路径
     private String packagePath;
-    // 数据库名
+    // 操作的表名
     private String tables;
 }
