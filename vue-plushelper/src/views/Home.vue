@@ -27,7 +27,32 @@
           </el-menu>
         </el-aside>
         
-        <el-main>Main</el-main>
+        <el-main>
+          <el-form :model="GeneratorParam" :rules="ruleForGenerate" ref="ruleForm" label-width="240px" class="demo-ruleForm">
+            <el-form-item label="项目根目录路径:" prop="projectPath">
+              <el-input  placeholder="C:/my_github/mybatis-plus-helper/springboot-plushelper" v-model="GeneratorParam.projectPath" style="width: 400px"></el-input>
+            </el-form-item>
+            <el-form-item label="项目包结构:" prop="packagePath">
+              <el-input  placeholder="com.example.demo" v-model="GeneratorParam.packagePath" style="width: 220px"></el-input>
+            </el-form-item>
+            <el-form-item label="数据库名:" prop="database">
+              <el-tag>{{GeneratorParam.database}}</el-tag>
+            </el-form-item>
+            <el-form-item label="数据库表名:" prop="tables">
+              <template>
+                <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+                <div style="margin: 15px 0;"></div>
+                <el-checkbox-group v-model="checkedTables" @change="handleCheckedTablesChange">
+                  <el-checkbox v-for="table in tables" :label="table" :key="table">{{table}}</el-checkbox>
+                </el-checkbox-group>
+              </template>
+            </el-form-item>
+            <el-form-item>
+              <el-button type="primary" @click="submitGenerate('ruleForm')">生成代码</el-button>
+              <el-button @click="resetForm('ruleForm')">重置</el-button>
+            </el-form-item>
+          </el-form>
+        </el-main>
       </el-container>
     </el-container>
   
@@ -106,19 +131,29 @@ export default {
         password: [{required:true, message:'请输入密码', trigger:'blur'}],
         database: [{required:true, message:'请选择数据库', trigger:'blur'}],
       },
+      ruleForGenerate:{
+        projectPath: [{required:true, message:'请输入项目路径', trigger:'blur'}],
+        packagePath: [{required:true, message:'请输入项目包结构', trigger:'blur'}],
+      },
+      GeneratorParam:{
+        projectPath: '',
+        database: '', 
+        packagePath: '',
+        tables: '',
+      },
+      checkAll: false,
+      isIndeterminate: true,
+      checkedTables: [],
     }
   },
-  mounted() {
-    
-  },
-  
   methods:{
     getTables(database){
       this.getRequest("/table/"+database).then(resp=>{
         if(resp){
           this.tables = resp;
         }
-      })
+      });
+      this.GeneratorParam.database = database;
     },
     doAddDatabase(){
       this.postRequest("/database/",this.connectionParam).then(resp=>{
@@ -127,12 +162,32 @@ export default {
           this.databases.push(this.connectionParam.database)
         }
       });
-      
     },
     showAddDatabase(){
       this.dialogVisible = true;
     },
-    
+    submitGenerate(){
+      this.GeneratorParam.tables = this.checkedTables[0];
+      for(let i=0; i<this.checkedTables.length; i++){
+        this.GeneratorParam.tables += "," + this.checkedTables[i];
+      }
+      this.postRequest("/generator/",this.GeneratorParam).then(resp=>{
+        if(resp){
+        }
+      });
+    },
+    resetForm(formName){
+      this.$refs[formName].resetFields();
+    },
+    handleCheckAllChange(val) {
+      this.checkedTables = val ? this.tables : [];
+      this.isIndeterminate = false;
+    },
+    handleCheckedTablesChange(value) {
+      let checkedCount = value.length;
+      this.checkAll = checkedCount === this.tables.length;
+      this.isIndeterminate = checkedCount > 0 && checkedCount < this.tables.length;
+    }
   },
 }
 </script>
